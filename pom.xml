@@ -14,7 +14,9 @@
   <name>Archetype - rate-limiting</name>
   <url>http://maven.apache.org</url>
   <modules>
+    <module>commons-core</module>
     <module>token-bucket</module>
+    <module>leaking-bucket</module>
   </modules>
 
   <dependencies>
