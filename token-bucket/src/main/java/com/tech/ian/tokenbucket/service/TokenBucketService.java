@@ -1,6 +1,6 @@
 package com.tech.ian.tokenbucket.service;
 
-import com.tech.ian.tokenbucket.service.ex.RateLimitExceededException;
+import com.tech.ian.exceptions.RateLimitExceededException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.scheduling.annotation.Scheduled;
@@ -11,7 +11,6 @@ import java.util.Collection;
 import java.util.List;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
-import java.util.concurrent.CopyOnWriteArrayList;
 
 @Service
 public class TokenBucketService {
