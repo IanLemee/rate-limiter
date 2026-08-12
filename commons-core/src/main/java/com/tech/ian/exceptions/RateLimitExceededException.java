@@ -1,4 +1,4 @@
-package com.tech.ian.tokenbucket.service.ex;
+package com.tech.ian.exceptions;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.ResponseStatus;
