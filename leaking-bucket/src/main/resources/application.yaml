@@ -1,0 +1,6 @@
+spring:
+  application:
+    name: leaking-bucket
+logging:
+  level:
+    root: info
