@@ -1,0 +1,6 @@
+spring:
+  application:
+    name: sliding-window-counter
+logging:
+  level:
+    root: info

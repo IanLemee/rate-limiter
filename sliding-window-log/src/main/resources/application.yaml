@@ -1,0 +1,6 @@
+spring:
+  application:
+    name: sliding-window-log
+logging:
+  level:
+    root: info

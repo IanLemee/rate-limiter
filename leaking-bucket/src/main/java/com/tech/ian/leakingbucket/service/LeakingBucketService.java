@@ -8,31 +8,28 @@ import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 
 import java.util.Queue;
+import java.util.concurrent.BlockingQueue;
 import java.util.concurrent.ConcurrentLinkedQueue;
+import java.util.concurrent.LinkedBlockingQueue;
 
 @Service
 public class LeakingBucketService {
-    private final Queue<RequestDto> queue = new ConcurrentLinkedQueue<>();
     private static final int QUEUE_SIZE_THRESHOLD = 5;
     private static final int OUTFLOW_RATE = 2;
-
-    private static final Logger LOGGER = LoggerFactory.getLogger(LeakingBucketService.class);
+    private final BlockingQueue<RequestDto> queue = new LinkedBlockingQueue<>(QUEUE_SIZE_THRESHOLD);
 
     public void addRequest(RequestDto request) {
-        if (queue.size() >= QUEUE_SIZE_THRESHOLD) {
-            LOGGER.warn("Queue size: {} is equal or greater than threshold: {}", queue.size(), QUEUE_SIZE_THRESHOLD);
+        if (!queue.offer(request)) {
             throw new RateLimitExceededException();
         }
-        queue.add(request);
-        LOGGER.info("Adding request at queue. Queue size: {}", queue.size());
     }
 
     @Scheduled(cron = "*/5 * * * * *")
     public void processQueue() {
-            for (int i = 0; i <  OUTFLOW_RATE && !queue.isEmpty(); i++) {
-                RequestDto poll = queue.poll();
-                LOGGER.info("processing request data: {}", poll);
-                LOGGER.info("Queue size: {}", queue.size());
-            }
+        for (int i = 0; i < OUTFLOW_RATE; i++) {
+            RequestDto poll = queue.poll();
+            if (poll == null) break;
+            // process request
+        }
     }
 }

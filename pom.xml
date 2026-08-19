@@ -18,6 +18,8 @@
     <module>token-bucket</module>
     <module>leaking-bucket</module>
     <module>fixed-window-counter</module>
+    <module>sliding-window-log</module>
+    <module>sliding-window-counter</module>
   </modules>
 
   <dependencies>
